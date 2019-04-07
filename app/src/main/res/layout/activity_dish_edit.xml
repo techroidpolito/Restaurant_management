@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:theme="@style/AppTheme"
+    >
+
+    <RelativeLayout
+        android:id="@+id/edit_dish_picture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/top_bg"
+        android:padding="16dp"
+        >
+
+        <ImageView
+            android:id="@+id/edit_profile_picture"
+            android:layout_centerInParent="true"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@android:drawable/ic_menu_gallery"
+            android:contentDescription="@string/dish_picture_description"
+            />
+
+        <ImageButton
+            android:id="@+id/edit_dish_picture_button"
+            android:src="@android:drawable/ic_menu_camera"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:padding="12dp"
+            android:layout_alignEnd="@+id/edit_profile_picture"
+            android:layout_alignBottom="@+id/edit_profile_picture"
+            />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/edit_scroll_info"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/edit_dish_picture"
+        >
+
+        <RelativeLayout android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_margin="16dp"
+            android:layout_gravity="center_horizontal"
+            >
+            <EditText
+                android:id="@+id/edit_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:inputType="textPersonName"
+                android:hint="@string/name"
+                />
+
+            <EditText
+                android:id="@+id/edit_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edit_name"
+                android:layout_marginBottom="16dp"
+                android:inputType="textMultiLine"
+                android:lines="1"
+                android:maxLines="5"
+                android:gravity="top|left"
+                android:hint="@string/description"
+                />
+
+            // menu a trois choix, plusieurs selectionnables
+            <EditText
+                android:id="@+id/edit_daytime"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edit_description"
+                android:layout_marginBottom="16dp"
+                android:inputType="phone"
+                android:hint="@string/daytime"
+                />
+
+            // menu a quatre choix, un seul selectionnable: entree, plat, dessert, boisson
+            <EditText
+                android:id="@+id/edit_food_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edit_daytime"
+                android:layout_marginBottom="16dp"
+                android:inputType="textCapCharacters"
+                android:hint="@string/food_type"
+                />
+
+            // float a entrer
+            <EditText
+                android:id="@+id/edit_price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edit_food_type"
+                android:layout_marginBottom="16dp"
+                android:inputType="numberDecimal"
+                android:hint="@string/price"
+                />
+
+            // int a entrer
+            <EditText
+                android:id="@+id/edit_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/edit_price"
+                android:layout_marginBottom="16dp"
+                android:inputType="number"
+                android:hint="@string/quantity"
+                />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>
