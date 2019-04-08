@@ -7,9 +7,7 @@
     <color name="card_bg">#E0E0E0</color>
 
     <!-- Array of colors that will be used by ViewPager as background colors -->
-    <array name="colorPagesViewPager">
-        <item>#EDD9CF</item>
-        <item>#F7CF8B</item>
-        <item>#FD96A2</item>
-    </array>
+    <color name="colorBreakfast">#EDD9CF</color>
+    <color name="colorLunch">#F7CF8B</color>
+    <color name="colorDiner">#FD96A2</color>
 </resources>
