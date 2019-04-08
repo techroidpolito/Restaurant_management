@@ -1,5 +1,8 @@
 package com.gratus.restaurantmanagement.adapter;
 
+import com.gratus.restaurantmanagement.Fragment.BreakfastPageFragment;
+import com.gratus.restaurantmanagement.Fragment.DinerPageFragment;
+import com.gratus.restaurantmanagement.Fragment.LunchPageFragment;
 import com.gratus.restaurantmanagement.Fragment.PageFragment;
 
 import java.util.ArrayList;
@@ -12,16 +15,12 @@ public class MenuPageAdapter extends FragmentPagerAdapter {
     private static final ArrayList<String> tab_titles = new ArrayList<String>(){{
         add("Breakfast");
         add("Lunch");
-        add("Breakfast");
+        add("Diner");
     }};
 
-    // 1 - Array of colors that will be passed to PageFragment
-    private int[] colors;
-
     // 2 - Default Constructor
-    public MenuPageAdapter(FragmentManager mgr, int[] colors) {
+    public MenuPageAdapter(FragmentManager mgr) {
         super(mgr);
-        this.colors = colors;
     }
 
     @Override
@@ -32,7 +31,16 @@ public class MenuPageAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         // 4 - Page to return
-        return(PageFragment.newInstance(position, this.colors[position]));
+        switch (position){
+            case 0:
+                return BreakfastPageFragment.newInstance();
+            case 1:
+                return LunchPageFragment.newInstance();
+            case 2:
+                return DinerPageFragment.newInstance();
+            default:
+                return null;
+        }
     }
 
     @Override

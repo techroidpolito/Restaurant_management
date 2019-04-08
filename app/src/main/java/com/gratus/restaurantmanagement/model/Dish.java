@@ -8,6 +8,17 @@ public class Dish {
     private float price;
     private boolean already_filled;
 
+    public Dish(){
+        this.imageUri = "";
+        this.name = "";
+        this.description = "";
+        this.daytime = "";
+        this.foodtype = "";
+        this.quantity = 0;
+        this.price = 0;
+        this.already_filled = false;
+    }
+
     public Dish(ArrayList<String> array){
         this.imageUri = array.get(0);
         this.name = array.get(1);

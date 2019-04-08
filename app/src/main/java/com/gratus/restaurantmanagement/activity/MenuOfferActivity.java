@@ -25,46 +25,43 @@ public class MenuOfferActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private MyRecyclerAdapter mAdapter;
-    private ArrayList<Dish> data;
+    private ArrayList<Dish> breakfast_data;
+    private ArrayList<Dish> lunch_data;
+    private ArrayList<Dish> diner_data;
     private FloatingActionButton fab;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_offer);
-        data = new ArrayList<Dish>();
+        breakfast_data = new ArrayList<Dish>();
+        lunch_data = new ArrayList<Dish>();
+        diner_data = new ArrayList<Dish>();
 
+        //for now, only breakfast is saved
         if (savedInstanceState != null){
             int nb_dishes = savedInstanceState.getInt("nb of dishes");
             for(int i=0; i<nb_dishes; i++) {
                 Dish d = new Dish( savedInstanceState.getStringArrayList("dish "+i) );
-                data.add(d);
+                breakfast_data.add(d);
             }
         }
 
-        mRecyclerView = findViewById(R.id.dishesRecyclerView);
-        mAdapter = new MyRecyclerAdapter(this, data);
-        mRecyclerView.setAdapter(mAdapter);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //mRecyclerView = findViewById(R.id.dishes_list);
+        //mAdapter = new MyRecyclerAdapter(this, data);
+        //mRecyclerView.setAdapter(mAdapter);
+        //mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         this.configureViewPagerAndTabs();
 
         Log.d("configuration","done");
-        fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent fab_intent = new Intent(MenuOfferActivity.this, DishEditActivity.class);
-                Log.d("fab","clicked");
-                startActivity(fab_intent);
-            }
-        });
     }
 
     private void configureViewPagerAndTabs(){
         // Get ViewPager from layout
         ViewPager pager = findViewById(R.id.viewpager);
         // Set Adapter PageAdapter and glue it together
-        pager.setAdapter(new MenuPageAdapter(getSupportFragmentManager(), getResources().getIntArray(R.array.colorPagesViewPager)) {
+        pager.setAdapter(new MenuPageAdapter(getSupportFragmentManager()) {
         });
+
 
         // Get TabLayout from layout
         TabLayout tabs = findViewById(R.id.menus_tablayout);
@@ -78,14 +75,15 @@ public class MenuOfferActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState (Bundle outState) {
         super.onSaveInstanceState(outState);
-        Iterator<Dish> it = data.iterator();
+        Iterator<Dish> it = breakfast_data.iterator();
         int index = 0;
         while (it.hasNext()) {
             ArrayList al = it.next().toArrayList();
             outState.putStringArrayList("dish "+String.valueOf(index), al);
             index += 1;
         }
-        outState.putInt("nb of dishes", mAdapter.getItemCount());
-        Log.d("check the nb of dishes", mAdapter.getItemCount()+" "+index);
+        //outState.putInt("nb of dishes", mAdapter.getItemCount());
+        outState.putInt("nb of dishes", index);
+        //Log.d("check the nb of dishes", mAdapter.getItemCount()+" "+index);
     }
 }

@@ -45,7 +45,12 @@ public class DishEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dish_edit);
         Intent i = getIntent();
-        dish = new Dish(i.getStringArrayListExtra("dish"));
+        boolean new_dish = i.getBooleanExtra("new_dish",true);
+        if (new_dish == true){
+            dish = new Dish();
+        } else {
+            dish = new Dish(i.getStringArrayListExtra("dish"));
+        }
 
         if (savedInstanceState != null) {
             dish = new Dish( savedInstanceState.getStringArrayList("dish" ));
@@ -141,8 +146,10 @@ public class DishEditActivity extends AppCompatActivity {
                 String foodtype = foodtype_et.getText().toString();
                 dish.setFoodtype(foodtype);
                 String price = price_et.getText().toString();
+                Log.d("price",price);
                 dish.setPrice(Float.parseFloat(price));
                 String quantity = quantity_et.getText().toString();
+                Log.d("quantity",quantity);
                 dish.setQuantity(Integer.parseInt(quantity));
 
                 Intent saveIntent = new Intent();

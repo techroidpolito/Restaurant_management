@@ -40,7 +40,7 @@ class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListen
         this.description.setText(current.getDescription());
         this.price.setText(""+current.getPrice());
         this.quantity.setText(""+current.getQuantity());
-        this.image.setImageDrawable(Drawable.createFromPath("@drawable/logo"));
+        this.image.setImageDrawable(Drawable.createFromPath("@drawable/logo")); //to change
     }
 
     public void setListeners(){
