@@ -5,9 +5,5 @@
     <color name="colorAccent">#D81B60</color>
     <color name="top_bg">#9473B6</color>
     <color name="card_bg">#E0E0E0</color>
-
-    <!-- Array of colors that will be used by ViewPager as background colors -->
-    <color name="colorBreakfast">#EDD9CF</color>
-    <color name="colorLunch">#F7CF8B</color>
-    <color name="colorDiner">#FD96A2</color>
+    <color name="blue_600">#1E88E5</color>
 </resources>
