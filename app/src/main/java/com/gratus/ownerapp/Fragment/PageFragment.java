@@ -67,7 +67,7 @@ public class PageFragment extends Fragment {
         RelativeLayout rootView= result.findViewById(R.id.fragment_page_rootview);
         mFab = result.findViewById(R.id.fab);
         mRecyclerView = result.findViewById(R.id.fragment_rv);
-        String daytime = getArguments().getString(KEY_DAYTIME);
+        final String daytime = getArguments().getString(KEY_DAYTIME);
         mAdapter = new MyRecyclerAdapter(getContext(), data, daytime);
         mRecyclerView.setAdapter(mAdapter);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext(),RecyclerView.VERTICAL,false));
@@ -78,13 +78,13 @@ public class PageFragment extends Fragment {
             public void onClick(View v) {
                 Intent fab_intent = new Intent(getActivity(), DishEditActivity.class);
                 fab_intent.putExtra("new_dish", true);
-                fab_intent.putExtra("daytime", "Breakfast");
+                fab_intent.putExtra("daytime", daytime);
                 Log.d("fab", "clicked");
                 startActivityForResult(fab_intent, new_menu_request);
             }
         });
 
-        Log.d(getClass().getSimpleName(), "onCreateView called for Breakfast fragment");
+        Log.d(getClass().getSimpleName(), "onCreateView called for "+daytime);
 
         return result;
     }
@@ -109,8 +109,8 @@ public class PageFragment extends Fragment {
         super.onSaveInstanceState(outState);
         //save the fragment's state
         int position = getArguments().getInt(KEY_POSITION);
-        MenuOfferActivity.setData(data, position);
-        Log.d("key",getArguments().getString(KEY_DAYTIME));
+        //MenuOfferActivity.setData(data, position);
+        Log.d("key",getArguments().getString(KEY_DAYTIME)+position);
     }
 
 }

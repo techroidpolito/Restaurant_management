@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -59,7 +58,6 @@ public class DishEditActivity extends AppCompatActivity implements CameraInterfa
         }
 
         if (savedInstanceState != null) {
-            Log.d("savedInstanceState","not null");
             dish = new Dish( savedInstanceState.getStringArrayList("dish" ));
         }
 
@@ -84,10 +82,6 @@ public class DishEditActivity extends AppCompatActivity implements CameraInterfa
             if (!description.equals("")) {
                 description_et.setText(description);
             }
-            String daytime = dish.getDaytime();
-            if (!daytime.equals("")) {
-                daytime_tv.setText(daytime);
-            }
             float price = dish.getPrice();
             if (price != 0) {
                 price_et.setText(Float.toString(price));
@@ -99,7 +93,6 @@ public class DishEditActivity extends AppCompatActivity implements CameraInterfa
                     break;
                 }
             }
-            Log.d("foodtype recognized",foodtypes[selected_foodtype]);
 
             int quantity = dish.getQuantity();
             if (quantity != 0) {
@@ -107,6 +100,10 @@ public class DishEditActivity extends AppCompatActivity implements CameraInterfa
             }
             String pp_uri = dish.getImageUri();
             loadProfile(pp_uri,profileImage);
+        }
+        String daytime = dish.getDaytime();
+        if (!daytime.equals("")) {
+            daytime_tv.setText(daytime);
         }
 
         foodtype_sp = findViewById(R.id.spinner_foodtype);
@@ -120,7 +117,6 @@ public class DishEditActivity extends AppCompatActivity implements CameraInterfa
             public void onItemSelected(AdapterView<?> parent, View view,
                                        int position, long id) {
                 selected_foodtype = position;
-                Log.v("item", (String) parent.getItemAtPosition(position));
             }
 
             @Override
@@ -167,7 +163,6 @@ public class DishEditActivity extends AppCompatActivity implements CameraInterfa
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.topmenu_save, menu);
-        Log.i("onCreateOptionsMenu","ok in EditingActivity");
         return true;
     }
 
@@ -194,13 +189,11 @@ public class DishEditActivity extends AppCompatActivity implements CameraInterfa
                     if (price.equals("")) {
                         price = "0";
                     }
-                    Log.d("price", price);
                     dish.setPrice(Float.parseFloat(price));
                     String quantity = quantity_et.getText().toString();
                     if (quantity.equals("")) {
                         quantity = "0";
                     }
-                    Log.d("quantity", quantity);
                     dish.setQuantity(Integer.parseInt(quantity));
 
                     Intent saveIntent = new Intent();

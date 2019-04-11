@@ -1,13 +1,9 @@
 package com.gratus.ownerapp.activity;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
-import com.gratus.ownerapp.Fragment.DishBottomFragment;
-import com.gratus.ownerapp.Fragment.PageFragment;
 import com.gratus.ownerapp.R;
 import com.gratus.ownerapp.adapter.MenuPageAdapter;
 import com.gratus.ownerapp.model.Dish;
@@ -25,7 +21,6 @@ public class MenuOfferActivity extends AppCompatActivity {
     private static ArrayList<Dish> diner_data;
     private FloatingActionButton fab;
     private ViewPager pager;
-    static DishBottomFragment dishBottomFragment;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,11 +28,27 @@ public class MenuOfferActivity extends AppCompatActivity {
 
         if (savedInstanceState != null){
 
-            int nb_dishes = savedInstanceState.getInt("nb of dishes");
-            for(int i=0; i<nb_dishes; i++) {
-                Dish d = new Dish( savedInstanceState.getStringArrayList("dish "+i) );
+            breakfast_data.clear();
+            int nb_dishes_b = savedInstanceState.getInt("nb_dishes_b");
+            for(int i=0; i<nb_dishes_b; i++) {
+                Dish d = new Dish( savedInstanceState.getStringArrayList("breakfast_dish"+i) );
                 breakfast_data.add(d);
             }
+
+            lunch_data.clear();
+            int nb_dishes_l = savedInstanceState.getInt("nb_dishes_l");
+            for(int i=0; i<nb_dishes_l; i++) {
+                Dish d = new Dish(savedInstanceState.getStringArrayList("lunch_dish" + i));
+                lunch_data.add(d);
+            }
+
+            diner_data.clear();
+            int nb_dishes_d = savedInstanceState.getInt("nb_dishes_d");
+            for(int i=0; i<nb_dishes_d; i++) {
+                Dish d = new Dish(savedInstanceState.getStringArrayList("diner_dish" + i));
+                diner_data.add(d);
+            }
+
         } else {
             breakfast_data = new ArrayList<Dish>();
             lunch_data = new ArrayList<Dish>();
@@ -45,17 +56,6 @@ public class MenuOfferActivity extends AppCompatActivity {
         }
 
         this.configureViewPagerAndTabs();
-        pager.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("Check click",v.getId()+" vs "+R.id.dish_more_button);
-                if( v.getId()==R.id.dish_more_button ){
-                    showDishBottomFragment();
-                }
-            }
-        });
-
-        Log.d("configuration","done");
     }
 
     private void configureViewPagerAndTabs(){
@@ -72,7 +72,7 @@ public class MenuOfferActivity extends AppCompatActivity {
         tabs.setupWithViewPager(pager);
         // Design purpose. Tabs have the same width
         tabs.setTabMode(TabLayout.MODE_FIXED);
-
+        tabs.setTabGravity(TabLayout.GRAVITY_FILL);
     }
 
     @Override
@@ -80,26 +80,42 @@ public class MenuOfferActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
 
         Iterator<Dish> it = breakfast_data.iterator();
-        int index = 0;
+        int indexb = 0;
         while (it.hasNext()) {
             ArrayList al = it.next().toArrayList();
-            outState.putStringArrayList("dish "+String.valueOf(index), al);
-            index += 1;
+            outState.putStringArrayList("breakfast_dish"+String.valueOf(indexb), al);
+            indexb += 1;
         }
-        //outState.putInt("nb of dishes", mAdapter.getItemCount());
-        outState.putInt("nb of dishes", index);
-        //Log.d("check the nb of dishes", mAdapter.getItemCount()+" "+index);
+        outState.putInt("nb_dishes_b", indexb);
+
+        Iterator<Dish> it2 = lunch_data.iterator();
+        int indexl = 0;
+        while (it2.hasNext()) {
+            ArrayList al = it2.next().toArrayList();
+            outState.putStringArrayList("lunch_dish"+String.valueOf(indexl), al);
+            indexl += 1;
+        }
+        outState.putInt("nb_dishes_l", indexl);
+
+        Iterator<Dish> it3 = diner_data.iterator();
+        int indexd = 0;
+        while (it3.hasNext()) {
+            ArrayList al = it3.next().toArrayList();
+            outState.putStringArrayList("diner_dish"+String.valueOf(indexd), al);
+            indexd += 1;
+        }
+        outState.putInt("nb_dishes_d", indexd);
     }
 
-    public static void setData(ArrayList<Dish> arrayList, int fragment_nb){
-        switch (fragment_nb){
-            case 0:
+    public static void setData(ArrayList<Dish> arrayList, String daytime){
+        switch (daytime){
+            case "Breakfast":
                 breakfast_data = arrayList;
                 break;
-            case 1:
+            case "Lunch":
                 lunch_data = arrayList;
                 break;
-            case 2:
+            case "Diner":
                 diner_data = arrayList;
                 break;
             default:
@@ -120,8 +136,4 @@ public class MenuOfferActivity extends AppCompatActivity {
         }
     }
 
-    public void showDishBottomFragment() {
-        dishBottomFragment = new DishBottomFragment();
-        dishBottomFragment.show(getSupportFragmentManager(),dishBottomFragment.getTag());
-    }
 }

@@ -19,7 +19,6 @@ import com.gratus.ownerapp.model.Dish;
 
 import java.util.ArrayList;
 
-import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.MyViewHolder> {
@@ -39,10 +38,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
     class MyViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView name, description, price, quantity;
         ImageView image;
-        TextView more;
         ImageButton edit, delete;
-        int position;
-        Dish current;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -51,7 +47,6 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
             price = itemView.findViewById(R.id.dish_price);
             quantity = itemView.findViewById(R.id.dish_quantity);
             image = itemView.findViewById(R.id.dish_picture);
-            more = itemView.findViewById(R.id.dish_more_button);
             edit = itemView.findViewById(R.id.dish_edit_button);
             delete = itemView.findViewById(R.id.dish_delete_button);
         }
@@ -65,7 +60,6 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
         }
 
         public void setListeners() {
-            more.setOnClickListener(this);
             edit.setOnClickListener(this);
             delete.setOnClickListener(this);
         }
@@ -81,7 +75,7 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
                     ((Activity) context).startActivityForResult(edit_intent, menu_request);
                     break;
                 case R.id.dish_delete_button:
-                    removeItem(position);
+                    removeItem(getAdapterPosition());
                     break;
             }
         }
@@ -110,13 +104,14 @@ public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.My
     public void addItem(Dish dish){
         int last_position = this.getItemCount();
         mData.add(dish);
-        Log.d("foodtype",dish.getFoodtype());
+        MenuOfferActivity.setData(mData, daytime);
         notifyItemInserted(last_position);
         notifyItemRangeChanged(last_position,mData.size());
     }
 
     public void removeItem(int position){
         mData.remove(position);
+        MenuOfferActivity.setData(mData, daytime);
         notifyItemRemoved(position);
         notifyItemRangeChanged(position,mData.size());
     }

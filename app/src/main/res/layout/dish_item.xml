@@ -68,7 +68,7 @@
 
         <RelativeLayout
             android:id="@+id/buttons"
-            android:layout_width="76dp"
+            android:layout_width="32dp"
             android:layout_height="72dp"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
@@ -79,8 +79,8 @@
                 android:id="@+id/dish_delete_button"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
                 android:src="@android:drawable/ic_menu_delete" />
 
             <ImageButton
@@ -90,17 +90,6 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
                 android:src="@android:drawable/ic_menu_edit" />
-
-            <TextView
-                android:id="@+id/dish_more_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentBottom="true"
-                android:text="@string/moreButton"
-                android:textSize="12sp"
-                android:textColor="@color/blue_600"
-                />
 
 
         </RelativeLayout>
